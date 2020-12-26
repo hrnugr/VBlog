@@ -1,0 +1,27 @@
+server:
+  port: 8080
+  error:
+    whitelabel:
+      enabled: false
+
+spring:
+  resources:
+    add-mappings : true
+  datasource:
+    url: jdbc:postgresql://localhost:5432/vblog_db
+    username: vblog
+    password: vblog
+    configuration:
+      maximum-pool : 30
+  jpa:
+    hibernate:
+      default_schema: vblog
+      ddl-auto: update
+    generate-ddl : true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        jdbc:
+          lob:
+            non_contextual_creation: true
+
