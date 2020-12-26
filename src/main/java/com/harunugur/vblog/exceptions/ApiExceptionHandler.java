@@ -32,13 +32,11 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
         return buildResponseEntity(apiError);
     }
 
-    @ExceptionHandler(value
-            = { IllegalArgumentException.class, IllegalStateException.class })
-    protected ResponseEntity<Object> handleConflict(
-            RuntimeException ex, WebRequest request) {
-        String bodyOfResponse = "This should be application specific";
-        return handleExceptionInternal(ex, bodyOfResponse,
-                new HttpHeaders(), HttpStatus.CONFLICT, request);
+    @ExceptionHandler(value = { IllegalArgumentException.class, IllegalStateException.class })
+    protected ResponseEntity<Object> handleConflict(RuntimeException ex, WebRequest request) {
+        ApiError apiError = new ApiError(HttpStatus.CONFLICT);
+        apiError.setMessage("This should be application specific");
+        return buildResponseEntity(apiError);
     }
 
     private ResponseEntity<Object> buildResponseEntity(ApiError apiError) {

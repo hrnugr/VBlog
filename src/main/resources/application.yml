@@ -24,4 +24,7 @@ spring:
         jdbc:
           lob:
             non_contextual_creation: true
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+
 
