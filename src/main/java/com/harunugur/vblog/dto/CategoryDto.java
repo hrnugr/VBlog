@@ -1,4 +1,13 @@
 package com.harunugur.vblog.dto;
 
-public class CategoryDto {
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class CategoryDto{
+    private Long id;
+    private String name;
 }

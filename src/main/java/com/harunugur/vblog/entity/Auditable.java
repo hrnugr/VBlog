@@ -10,11 +10,7 @@ import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import static javax.persistence.TemporalType.TIMESTAMP;
-import javax.persistence.Column;
-import javax.persistence.EntityListeners;
-import javax.persistence.MappedSuperclass;
-import javax.persistence.Temporal;
+import javax.persistence.*;
 import java.util.Date;
 
 @Getter(AccessLevel.PROTECTED)
@@ -29,6 +25,8 @@ public class Auditable<U> {
 
     @CreatedDate
     @Column(name = "created_date")
+    @Temporal(TemporalType.TIMESTAMP)
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date createdDate;
 
     @LastModifiedBy
@@ -37,6 +35,8 @@ public class Auditable<U> {
 
     @LastModifiedDate
     @Column(name = "last_modified_date")
+    @Temporal(TemporalType.TIMESTAMP)
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date lastModifiedDate;
 
 }
