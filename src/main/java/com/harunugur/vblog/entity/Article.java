@@ -13,7 +13,8 @@ import java.util.Set;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Article {
+@Table(name = "articles")
+public class Article extends Auditable<String>{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,24 +23,30 @@ public class Article {
     private String content;
     private String summary;
     private Timestamp publishTime;
-    private Timestamp createdTime;
-    private Timestamp updateTime;
     private int status ;
     private boolean enabled;
 
-    @ManyToMany(cascade = { CascadeType.ALL})
+    @ManyToMany(
+            fetch = FetchType.LAZY,
+            cascade = {
+                    CascadeType.MERGE
+            })
     @JoinTable(
             name = "article_category",
             joinColumns = @JoinColumn(name = "article_id",referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "category_id",referencedColumnName = "id"))
-    private Set<Category> categories = new HashSet<>();
+    private Set<Category> categories;
 
-    @ManyToMany(cascade = {CascadeType.ALL})
+    @ManyToMany(
+            fetch = FetchType.LAZY,
+            cascade = {
+                    CascadeType.MERGE
+            })
     @JoinTable(
             name = "article_tag",
             joinColumns = @JoinColumn(name = "article_id",referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "tag_id",referencedColumnName = "id"))
-    private Set<Tag> tags = new HashSet<>();
+    private Set<Tag> tags;
 
 
 }

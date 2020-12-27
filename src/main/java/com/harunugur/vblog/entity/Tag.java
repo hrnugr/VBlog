@@ -5,13 +5,14 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name="tags")
 public class Tag extends Auditable<String>{
 
     @Id
@@ -19,6 +20,12 @@ public class Tag extends Auditable<String>{
     private Long id;
     private String name;
 
-    @ManyToMany(mappedBy = "tags")
-    private List<Article> articles = new ArrayList<>();
+    @ManyToMany(
+            fetch = FetchType.LAZY,
+            cascade = {
+                    CascadeType.MERGE
+            },
+            mappedBy = "tags")
+    private Set<Article> articles;
+
 }
